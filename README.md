@@ -1,12 +1,12 @@
 # Summary
 ### OS : Ubuntu 22.04
-### CRI : Docker latest 
+### CRI : Docker latest
 ### k8s version : 1.24.6 deployed by kubespray release-2.20
 ### CNI : calico
 ### Kubeflow version : 1.7
 ### kustomize version : 5.0.0
 ### storageclass : nfs-provisioner
-### etc : gpu-operator, dashboard
+### etc : gpu-operator
 #
 # How to use this repository
 ### 1. fix ips of every node
@@ -19,3 +19,11 @@
 ### 9. run setup_nfs_provisioner.sh in master node. write the nfs_ip and nfs_path precisely
 ### 10. run setup_kubeflow_v1.5.sh(or kubeflow_V1.2) in master node. write master_ip precisely.
 ### 11. After above all, you can access kubeflow through "HTTPS"!!!
+#
+# how to uninstall gpu-operator
+### 1. helm delete -n gpu-operator $(helm list -n gpu-operator | grep gpu-operator | awk '{print $1}')
+#
+# how to delete kubeflow
+### 1. kubectl delete profile --all
+### 2. change directory to manifests
+### 3. kustomize build example | kubectl delete -f -
