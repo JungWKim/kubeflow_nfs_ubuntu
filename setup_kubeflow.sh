@@ -28,7 +28,7 @@ sed -i "s/true/false/g" ${HOME}/manifests/apps/jupyter/jupyter-web-app/upstream/
 # download kustomize 3.2.0 which is stable with kubeflow 1.5.0 then copy it into /bin/bash
 wget https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv5.0.0/kustomize_v5.0.0_linux_amd64.tar.gz
 tar -xvf kustomize_v5.0.0_linux_amd64.tar.gz
-sudo mv kustomize_v5.0.0_linux_amd64 /usr/bin/kustomize
+sudo mv ~/kustomize /usr/bin/
 
 # install kubeflow as a single command
 while ! kustomize build example | awk '!/well-defined/' | kubectl apply -f -; do echo "Retrying to apply resources"; sleep 10; done
