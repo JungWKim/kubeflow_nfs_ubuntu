@@ -6,7 +6,7 @@
 ### Kubeflow version : 1.7
 ### kustomize version : 5.0.0
 ### storageclass : nfs-provisioner
-### etc : gpu-operator
+### etc : gpu-operator, dashboard
 #
 # How to use this repository
 ### 1. fix ips of every node
