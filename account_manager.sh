@@ -51,7 +51,7 @@ func_prerequisite() {
 		exit 1; fi
 }
 
-#----- display how to use this script
+# display how to use this script
 func_usage() {
 	echo "  a  add user"
 	echo "  d  delete user"
@@ -165,10 +165,10 @@ func_list() {
 	grep username $USER_HOME/manifests/common/dex/base/config-map.yaml | cut -d ':' -f 2 | awk '{print $1}' | sort
 }
 
-#----- check prerequisite things before main operation
+# check prerequisite things before main operation
 func_prerequisite
 
-#----- main operation
+# main operation
 echo -e "\n----- Welcome to kubeflow account manager -----\n"
 while true ; do
 
