@@ -1,7 +1,5 @@
 #!/bin/bash
 
-IP=
-
 # install basic packages
 sudo apt update
 sudo apt install -y net-tools nfs-common whois xfsprogs
