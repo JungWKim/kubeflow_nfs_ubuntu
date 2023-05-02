@@ -23,7 +23,7 @@ cat << EOF >> ~/manifests/common/istio-1-16/kubeflow-istio-resources/base/kf-ist
 EOF
 
 # enable kubeflow to be accessed through https (2)
-sed -i "s/true/false/g" ~/manifests/apps/jupyter/jupyter-web-app/upstream/base/deployment.yaml
+sed -i "s/true/false/g" ~/manifests/apps/jupyter/jupyter-web-app/upstream/base/params.env
 
 # download kustomize 3.2.0 which is stable with kubeflow 1.5.0 then copy it into /bin/bash
 wget https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv5.0.0/kustomize_v5.0.0_linux_amd64.tar.gz
