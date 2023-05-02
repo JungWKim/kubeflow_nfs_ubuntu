@@ -31,7 +31,7 @@ tar -xvf kustomize_v5.0.0_linux_amd64.tar.gz
 mv kustomize_v5.0.0_linux_amd64 /usr/bin/kustomize
 
 #---------------- install kubeflow as a single command
-while ! kustomize build ${ADMIN_HOME}/manifests/example | kubectl apply -f -; do echo "Retrying to apply resources"; sleep 10; done
+while ! kustomize build example | awk '!/well-defined/' | kubectl apply -f -; do echo "Retrying to apply resources"; sleep 10; done
 
 #---------------- create certification for https connection
 sed -i 's/MASTER_IP/'"${MASTER_IP}"'/g' ~/kubeflow_nfs_ubuntu/certificate.yaml
