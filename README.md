@@ -1,7 +1,7 @@
 # Summary
 ### OS : Ubuntu 22.04
 ### CRI : Docker latest
-### k8s version : 1.24.6 deployed by kubespray release-2.20
+### k8s : 1.24.6 deployed by kubespray release-2.20
 ### CNI : calico
 ### Kubeflow version : 1.7
 ### kustomize version : 5.0.0
