@@ -10,21 +10,6 @@ func_prerequisite() {
 		echo -e " Please write value in USER."
 		exit 1 ; fi
 
-	# /etc/os-release file existence check
-	if [ ! -e "/etc/os-release" ] ; then
-		logger -s "[Error] /etc/os-release doesn't exist. OS is unrecognizable."
-		exit 1
-	else
-		# check OS distribution
-		local OS_DIST=$(. /etc/os-release;echo $ID$VERSION_ID)
-
-		if [ "${OS_DIST}" != "ubuntu20.04" ] ; then
-			logger -s "[Error] OS distribution doesn't match ubuntu20.04"
-			exit 1
-		fi
-		logger -s "[INFO] OS distribution matches ubuntu20.04"
-	fi
-
 	# define HOME directory
 	if [ $USER = root ] ; then
 		USER_HOME=/root
@@ -86,6 +71,18 @@ func_useradd() {
 			stty echo
 		done
 		
+		# password confirmation
+		while [ -z ${PW_confirm} ] ; do
+			stty -echo
+			read -e -p "password: " PW_confirm
+			stty echo
+		done
+
+		if [ ${PW} -ne ${PW_confirm} ] ; then
+			echo "password doesn't match. Retry again."
+			exit 1
+		fi
+
 		EMAIL=${NAME}@example.com
 		# bcrypt user's password
 		local ENCRYPT_PW=$(htpasswd -nbBC 10 $NAME $PW | cut -d ':' -f 2)
@@ -106,7 +103,7 @@ spec:
 EOF
 
 		# apply changes in config-map.yaml
-		while ! kustomize build $USER_HOME/manifests/example | kubectl apply -f -; do echo "Retrying to apply resources"; sleep 10; done 1> /dev/null
+		while ! kustomize build $USER_HOME/manifests/example | awk '!/well-defined/' | kubectl apply -f -; do echo "Retrying to apply resources"; sleep 10; done 1> /dev/null
 
 		# restart dex deployment
 		kubectl -n auth rollout restart deployment dex
@@ -139,7 +136,7 @@ func_userdel() {
 
 		# delete user account in config-map.yaml based on email && apply the change
 		sed -i -e "/${EMAIL}/,+3 d" $USER_HOME/manifests/common/dex/base/config-map.yaml
-		while ! kustomize build $USER_HOME/manifests/example | kubectl apply -f -; do echo "Retrying to apply resources"; sleep 10; done 1> /dev/null
+		while ! kustomize build $USER_HOME/manifests/example | awk '!/well-defined/' | kubectl apply -f -; do echo "Retrying to apply resources"; sleep 10; done 1> /dev/null
 
 		# restart dex deployment
 		kubectl -n auth rollout restart deployment dex
