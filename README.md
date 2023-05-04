@@ -23,3 +23,4 @@
 ### 1. change directory to manifests
 ### 2. kustomize build example | kubectl delete -f -
 ### 3. delete all namespaces related with kubeflow
+### 4. delete all data in nfs server
