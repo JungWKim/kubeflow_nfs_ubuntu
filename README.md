@@ -22,5 +22,5 @@
 # how to delete kubeflow
 ### 1. change directory to manifests
 ### 2. while ! kustomize build example | awk '!/well-defined/' | kubectl delete -f -; do echo "Retrying to apply resources"; sleep 10; done
-### 3. delete all namespaces related with kubeflow
+### 3. delete all namespaces related with kubeflow(kubeflow, kubeflow-user-example-com, knative-serving, knative-eventing, istio-system, cert-manager)
 ### 4. delete all data in nfs server
