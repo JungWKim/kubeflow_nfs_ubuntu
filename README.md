@@ -24,3 +24,5 @@
 ### 2. kustomize build example | awk '!/well-defined/' | kubectl delete -f -
 ### 3. delete all namespaces related with kubeflow(kubeflow, kubeflow-user-example-com, knative-serving, knative-eventing, istio-system, cert-manager)
 ### 4. delete all data in nfs server
+#
+# 이외에도 추가적인 내용은 kubespray_ubuntu 레포지토리 참고할 것
